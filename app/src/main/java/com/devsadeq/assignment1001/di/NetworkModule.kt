@@ -39,4 +39,12 @@ object NetworkModule {
         return GsonConverterFactory.create()
     }
 
+    @Provides
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .connectTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
+            .readTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
+            .build()
+    }
 }
