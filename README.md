@@ -31,7 +31,7 @@ Follow these steps to set up and run the app:
 3. Build and run the app on an emulator or physical device.
 
 
-Public API Used
+## Public API Used
 The app utilizes the public API available at https://fakestoreapi.com/products to fetch product data. For detailed API documentation, refer to https://fakestoreapi.com/docs.
 
 ## Implementation Details
@@ -74,7 +74,7 @@ private fun ProductList(
             ProductItem(
                 product = product,
                 interactionListener = interactionListener,
-                modifier = Modifier
+                modifier = modifier
             )
         }
     }
