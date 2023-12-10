@@ -15,7 +15,7 @@ data class ProductResource(
     @SerializedName("price")
     val price: Double?,
     @SerializedName("rating")
-    val rating: Rating?,
+    val rating: RateResource?,
     @SerializedName("title")
     val title: String?
 )
