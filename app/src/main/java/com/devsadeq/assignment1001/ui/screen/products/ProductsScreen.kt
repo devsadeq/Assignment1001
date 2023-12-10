@@ -14,6 +14,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,12 +38,16 @@ fun ProductsScreen(
 
     CollectUIEffect(uiEffect = viewModel.uiEffect) {
         when (it) {
-            is ProductsUIEffect.ShowToast -> {
+            is ProductsUIEffect.ShowSnackBar -> {
                 showSnackbar(snackbarHostState, it.message)
             }
         }
     }
-    ProductsScreenContent(state = state, interactionListener = viewModel)
+    ProductsScreenContent(
+        state = state,
+        interactionListener = viewModel,
+        snackbarHostState = snackbarHostState,
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
@@ -50,9 +55,12 @@ fun ProductsScreen(
 private fun ProductsScreenContent(
     state: ProductsUIState,
     interactionListener: ProductsInteractionListener,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+    ) { paddingValues ->
         AnimatedContent(targetState = state.isLoading, label = "") {
             if (it) LoadingState()
             else ProductList(
@@ -77,14 +85,14 @@ private fun ProductItem(
         overlineText = { Text(text = product.category) },
         supportingText = { Text(text = product.description) },
         trailingContent = { Text(text = "$${product.price}") },
-        modifier = Modifier.clickable { interactionListener.onProductClicked(product.title) },
         leadingContent = {
             Image(
                 painter = rememberAsyncImagePainter(product.image),
                 contentDescription = null,
                 modifier = Modifier.size(64.dp)
             )
-        }
+        },
+        modifier = modifier.clickable { interactionListener.onProductClicked(product.title) }
     )
 }
 
