@@ -2,8 +2,8 @@
 
 This Android app is built using Jetpack Compose, following the principles of Clean Architecture and MVVM design pattern. It aims to fetch and display a list of products from a public API and provide a clean, maintainable, and efficient codebase.
 
-### Demo
-
+### Demo 
+https://i.imgur.com/rKQWbw4.gif
 ![Demo](https://i.imgur.com/rKQWbw4.gif)
 
 ## Technology Stack
