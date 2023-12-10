@@ -2,6 +2,7 @@ package com.devsadeq.assignment1001.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.devsadeq.assignment1001.domain.model.NetworkException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,6 +68,10 @@ abstract class BaseViewModel<E> : ViewModel() {
         return scope.launch(dispatchers) {
             try {
                 action()
+            } catch (e: NetworkException.NoInternetException) {
+                onError(ErrorState.NoInternet)
+            } catch (e: NetworkException.NotFoundException) {
+                onError(ErrorState.NotFound)
             } catch (e: Exception) {
                 onError(ErrorState.Unknown)
             }

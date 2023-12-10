@@ -1,6 +1,7 @@
 package com.devsadeq.assignment1001.ui.base
 
 sealed interface ErrorState {
-    object NoInternet : ErrorState
-    object Unknown : ErrorState
+    data object NoInternet : ErrorState
+    data object NotFound : ErrorState
+    data object Unknown : ErrorState
 }
